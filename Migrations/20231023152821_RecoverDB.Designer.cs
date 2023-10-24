@@ -12,8 +12,8 @@ using Petrus_Vlad_Darius_LAB2.Data;
 namespace Petrus_Vlad_Darius_LAB2.Migrations
 {
     [DbContext(typeof(Petrus_Vlad_Darius_LAB2Context))]
-    [Migration("20231022130257_newAuthor")]
-    partial class newAuthor
+    [Migration("20231023152821_RecoverDB")]
+    partial class RecoverDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,11 +53,7 @@ namespace Petrus_Vlad_Darius_LAB2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<string>("AuthorID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("AuthorID1")
+                    b.Property<int?>("AuthorID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -75,11 +71,51 @@ namespace Petrus_Vlad_Darius_LAB2.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AuthorID1");
+                    b.HasIndex("AuthorID");
 
                     b.HasIndex("PublisherID");
 
                     b.ToTable("Book");
+                });
+
+            modelBuilder.Entity("Petrus_Vlad_Darius_LAB2.Models.BookCategory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("BookID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("BookCategory");
+                });
+
+            modelBuilder.Entity("Petrus_Vlad_Darius_LAB2.Models.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("Petrus_Vlad_Darius_LAB2.Models.Publisher", b =>
@@ -103,7 +139,7 @@ namespace Petrus_Vlad_Darius_LAB2.Migrations
                 {
                     b.HasOne("Petrus_Vlad_Darius_LAB2.Models.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorID1");
+                        .HasForeignKey("AuthorID");
 
                     b.HasOne("Petrus_Vlad_Darius_LAB2.Models.Publisher", "Publisher")
                         .WithMany("Books")
@@ -114,9 +150,38 @@ namespace Petrus_Vlad_Darius_LAB2.Migrations
                     b.Navigation("Publisher");
                 });
 
+            modelBuilder.Entity("Petrus_Vlad_Darius_LAB2.Models.BookCategory", b =>
+                {
+                    b.HasOne("Petrus_Vlad_Darius_LAB2.Models.Book", "Book")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Petrus_Vlad_Darius_LAB2.Models.Category", "Category")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Petrus_Vlad_Darius_LAB2.Models.Author", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Petrus_Vlad_Darius_LAB2.Models.Book", b =>
+                {
+                    b.Navigation("BookCategories");
+                });
+
+            modelBuilder.Entity("Petrus_Vlad_Darius_LAB2.Models.Category", b =>
+                {
+                    b.Navigation("BookCategories");
                 });
 
             modelBuilder.Entity("Petrus_Vlad_Darius_LAB2.Models.Publisher", b =>

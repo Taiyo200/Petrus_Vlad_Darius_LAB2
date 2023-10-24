@@ -19,5 +19,7 @@ namespace Petrus_Vlad_Darius_LAB2.Data
         public DbSet<Petrus_Vlad_Darius_LAB2.Models.Publisher>? Publisher { get; set; }
 
         public DbSet<Petrus_Vlad_Darius_LAB2.Models.Author>? Author { get; set; }
+
+        public DbSet<Petrus_Vlad_Darius_LAB2.Models.Category>? Category { get; set; }
     }
 }

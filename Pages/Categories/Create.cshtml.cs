@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Petrus_Vlad_Darius_LAB2.Data;
 using Petrus_Vlad_Darius_LAB2.Models;
 
-namespace Petrus_Vlad_Darius_LAB2.Pages.Authors
+namespace Petrus_Vlad_Darius_LAB2.Pages.Categories
 {
     public class CreateModel : PageModel
     {
@@ -25,18 +25,18 @@ namespace Petrus_Vlad_Darius_LAB2.Pages.Authors
         }
 
         [BindProperty]
-        public Author Author { get; set; } = default!;
+        public Category Category { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          /*if (!ModelState.IsValid || _context.Author == null || Author == null)
+          if (!ModelState.IsValid || _context.Category == null || Category == null)
             {
                 return Page();
-            }*/
+            }
 
-            _context.Author.Add(Author);
+            _context.Category.Add(Category);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
