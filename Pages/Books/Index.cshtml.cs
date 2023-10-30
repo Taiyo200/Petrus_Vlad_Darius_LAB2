@@ -54,7 +54,7 @@ searchString)
             {
                 BookD.Books = BookD.Books.Where(s => s.Author.FirstName.Contains(searchString)
 
-          || s.Author.LastName.Contains(searchString)
+          || s.Author.FirstName.Contains(searchString)
           || s.Title.Contains(searchString));
             }
 
