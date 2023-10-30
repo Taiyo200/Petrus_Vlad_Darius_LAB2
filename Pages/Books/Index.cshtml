@@ -30,14 +30,15 @@
             </th>
             
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Price)
-            </th>
-
-            <th colspan="2">
                 <a asp-page="./Index" asp-route-sortOrder="@Model.AuthorSort">
                     @Html.DisplayNameFor(model => model.Book[0].Author.FirstName)
                 </a>
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Price)
+            </th>
+
+            
 
             <th>
                 @Html.DisplayNameFor(model => model.Book[0].PublishingDate)
