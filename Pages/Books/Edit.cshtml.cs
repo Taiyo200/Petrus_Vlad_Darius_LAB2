@@ -51,8 +51,7 @@ namespace Petrus_Vlad_Darius_LAB2.Pages.Books
             ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID",
             "PublisherName");
 
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "ID",
-            "FirstName");
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "ID","FullName");
 
             return Page();
         }
@@ -85,7 +84,7 @@ selectedCategories)
             if (await TryUpdateModelAsync<Book>(
                 bookToUpdate,
                 "Book",
-                i => i.Title, i => i.Author,
+                i => i.Title, i => i.AuthorID,
                  i => i.Price, i => i.PublishingDate, i => i.PublisherID))
             {
                 UpdateBookCategories(_context, selectedCategories, bookToUpdate);

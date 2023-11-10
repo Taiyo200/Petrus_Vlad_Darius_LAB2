@@ -21,10 +21,8 @@ namespace Petrus_Vlad_Darius_LAB2.Pages.Books
 
         public IActionResult OnGet()
         {
-            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID",
-"PublisherName");
-            ViewData["AuthorsID"] = new SelectList(_context.Set<Author>(), "ID",
-"AuthorsID");
+            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID","PublisherName");
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "ID","FullName");
             var book = new Book();
             book.BookCategories = new List<BookCategory>();
 
